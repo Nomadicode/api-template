@@ -1,0 +1,44 @@
+volumes:
+  postgres_data: {}
+
+services:
+  server:
+    container_name: {{ cookiecutter.project_slug}}
+    build:
+      context: .
+      dockerfile: ./devops/Dockerfile.dev
+    depends_on:
+      - database
+    volumes:
+      - ./server:/app
+    ports:
+      - "8000:8000"
+    command: /start.sh
+    restart: on-failure
+    env_file: .env.local
+
+  {%- if cookiecutter.db_provider == 'postgis' %}    
+  database:
+    platform: linux/amd64
+    image: postgis/postgis:16-3.4-alpine
+    env_file: .env.local
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    expose:
+      - 5432
+  {%- endif %}
+
+  {%- if cookiecutter.db_provider == 'postgres' %}    
+  database:
+    platform: linux/amd64
+    image: postgres/postgres:16-3.4-alpine
+    env_file: .env.local
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    expose:
+      - 5432
+  {%- endif %}

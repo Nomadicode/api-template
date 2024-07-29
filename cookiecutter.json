@@ -1,0 +1,53 @@
+{
+    "project_name": "Nomadicode Project API",
+    "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
+    "version": "0.0.1",
+    "description": "Nomadicode Project API template",
+    "domain_name": "nomadicode.com",
+    "author": "Nomadicode Dev Team",
+    "email": "dev@nomadicode.com",
+    "timezone": "UTC",
+
+    "use_docker": true,
+    "i18n": true,
+    "require_tests": true,
+
+    "api_type": [
+        "rest",
+        "graphql"
+    ],
+    "use_elasticsearch": false,
+    "task_queue": [
+        "redis",
+        "rabbitmq",
+        "kafka",
+        "none"
+    ],
+
+    "db_provider": [
+        "postgres",
+        "postgis",
+        "sqlite",
+        "turso",
+        "firebase",
+        "neo4j",
+        "none"
+    ],
+    "mail_service": [
+        "Mailgun",
+        "SendinBlue",
+        "None"
+    ],
+
+    "cloud_provider": [
+        "AWS",
+        "GCP",
+        "DO",
+        "None"
+    ],
+
+    "_copy_without_render": [
+        "*static"
+    ],
+    "_secret_DO_GH": "${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}"
+}
